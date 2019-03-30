@@ -26,6 +26,7 @@ namespace Matching {
 
 	void MatchingEngine::processOrder(Order* order) {
 		int qtyToMatch = order->quantity;
+		orderBook->match(order,qtyToMatch);
 		//post non marketable portion
 		if(qtyToMatch > 0) {
 			if(qtyToMatch != order->quantity)

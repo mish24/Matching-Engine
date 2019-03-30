@@ -137,7 +137,7 @@ namespace Matching {
 
 		void bookTrade(int execQty, const string& buyer, const string& seller);
 		void bookTradeForTrader(const vector<string>& names);
-		int getTraderExposure(const string& names);
+		int getTraderExposure(const string& name);
 
 		friend ostream& operator<<(ostream& os, const OrderBook& book);
 	};

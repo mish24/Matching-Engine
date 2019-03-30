@@ -30,23 +30,22 @@ int main()
     }
     */
 
-    Matching::MatchingEngine engine;
-    //return engine.run( infile );
-    string n1 = "Poonam";
-    Order* b1 = new Order(700001,n1,73.21,100,100001,true);
-    Order* b2 = new Order(700002,n1,800,100,100002,false);
-    Order* b3 = new Order(700003,"Srajan",900,1000,100002,true);
-    Order* b4 = new Order(700004,"Pooja",74,200,100003,false);
-    Order* b5 = new Order(700009,"Tree",800,133,20390,false);
-    Order* b6 = new Order(700009,"Tree1",120,133,20290,false);
-    cout << *b1 << endl;
-    cout << *b2 << endl;
-    OrderBook* ob = new OrderBook();
-    ob->add(b1);
-    ob->add(b2);
-    ob->add(b3);
-    ob->add(b4);
-    ob->add(b5);
-    ob->add(b6);
-    cout << *ob << endl;
+    MatchingEngine me;
+    string n1 = "Mal", n2 = "Kaylee", n3 = "Tom";
+    me.init( {n1, n2, n3 } );
+
+    Order* b1 = new Order( 70000001, n1, 7321, 100, 100001, true );
+    Order* b2 = new Order( 70000002, n2, 7321, 200, 100002, true );
+    Order* s1 = new Order( 70000003, n3, 7221,  50, 100003, false );
+    me.processOrder( b1 );
+    me.processOrder( b2 );
+    me.processOrder( s1 );
+
+    OrderBook* orderBook = const_cast< OrderBook* >( me.getOrderBook() );
+    b2->quantity -= 50;
+    //OrderBook* ob1 = const_cast<OrderBook*>(engine.getOrderBook());
+    cout<<*orderBook<<endl;
+    
+    //cout << ob1->getTraderExposure(n1) << endl;
+
 }
