@@ -54,11 +54,13 @@ namespace Matching {
 			}
 
 			bool isBuy = strcmp(BUYSTR,buySellStr) == 0;
-			int priceInt = price*100 + 0.5;
+			int priceInt = price;
 			Order* order = new Order(id,name,priceInt,quantity,time,isBuy);
 			processOrder(order);
+			//cout<<*orderBook<<endl;
 		}
-
+		//OrderBook* orderBook = const_cast< OrderBook* >( getOrderBook() );
+		
 		int exposure = orderBook->getTraderExposure(TRADER);
 		string str = exposure >= 0 ? "L" : "S";
 		cout << str << endl;

@@ -220,6 +220,8 @@ namespace Matching {
 				if(quotes->empty()) {
 					delete bestPriceNode;
 					//bestPriceNode = NULL;
+					//deals with the nodes in the trees only for that price level. when the quantity is changed
+					//for qtyToMatch, this is updated in the processOrder function, not here.
 					askTree->erase(itBestPrice++);
 					askMap->erase(bestPrice);
 				}
