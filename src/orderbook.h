@@ -145,13 +145,23 @@ namespace Matching {
 
 	/*operator overload for OrderBook printing*/
 	inline ostream& operator<<(ostream& os, const OrderBook& book) {
+
+		//better to display asking price in the opposite way
+		os << "\n------Ask------\n";
+		for(PriceTreeIt it = book.askTree->begin(); it != book.askTree->end(); ++it) {
+			os << "Price: " << it->first << " [ ";
+			for(const auto& order: *(it->second->getOrderTree()))
+				os << *order << " ";
+			os << " ]" << endl;
+		}
+		/*
 		os << "\n------Ask------\n";
 		for(PriceTreeRevIt it = book.askTree->rbegin(); it != book.askTree->rend(); ++it) {
 			os << "Price: " << it->first << " [ ";
 			for(const auto& order: *(it->second->getOrderTree()))
 				os << *order << " ";
 			os << " ]" << endl;
-		}
+		}*/
 
 		os << "\n------Bid------\n";
 		for(PriceTreeRevIt it = book.bidTree->rbegin(); it!= book.bidTree->rend(); ++it) {
@@ -336,6 +346,7 @@ namespace Matching {
 		}
 
 		inline void OrderBook::bookTradeForTrader(const vector<string>& names) {
+			//initialise a trading account for the trader
 			for(string name : names) {
 				account->emplace(name,0);
 			}

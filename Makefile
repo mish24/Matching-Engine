@@ -1,14 +1,14 @@
 CC = g++
 CFLAGS = -o3 -Wall -std=c++11
 LIBS = 
-TESTLIBS = 
+TESTLIBS = -lboost_unit_test_framework
 SRC = src
-TEST_DIR =
+TEST_DIR = test
 OUT_DIR = bin
 SOURCES = $(wildcard $(SRC)/*.cpp)
-TESTS = 
+TESTS = $(SRC)/matchingEngine.cpp $(wildcard $(TEST_DIR)/*.cpp)
 OBJS = bin/matching
-OBJSTEST = 
+OBJSTEST = bin/test_matching
 DBFLAGS = -g
 PRFFLAGS = -pg
 MKDIR_P = mkdir -p
@@ -22,3 +22,15 @@ ${OUT_DIR}:
 	${MKDIR_P} ${OUT_DIR}
 
 .PHONY: test
+test:
+	$(CC) $(CFLAGS) $(TESTS) -o $(OBJSTEST) $(LIBS) $(TESTLIBS)
+	./$(OBJSTEST)
+
+prof:
+	$(CC) $(CFLAGS) $(PRFFLAGS) $(SOURCES) -o $(OBJS) $(LIBS)
+
+memleak:
+	valgrind --leak-check=yes ./run.sh 
+
+clean:
+	rm -rf $(OUT_DIR)/
